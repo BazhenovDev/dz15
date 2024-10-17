@@ -25,6 +25,7 @@ Promise.all(
         //     getFigmaUsers.call(persons[i]);
         // }
         getFigmaUsers.call(persons[0]);
+        getFigmaUsers2()
     });
 
 
@@ -196,7 +197,16 @@ function getFigmaUsers() {
 }
 
 
-
+function getFigmaUsers2() {
+    persons.forEach(person => {
+        person.skills.findIndex(skill => {
+            let figma = skill.name.toLowerCase() === 'figma';
+            if (figma) {
+                console.log(`${person.personal.firstName} ${person.personal.lastName}, владеет figma`)
+            }
+        });
+    })
+}
 
 
 
