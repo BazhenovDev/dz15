@@ -21,13 +21,7 @@ Promise.all(
 
 
         getInfo.call(persons[0]);
-        // for (let i = 0; i < persons.length; i++) {
-        //     getFigmaUsers.call(persons[i]);
-        // }
-        getFigmaUsers.call(persons[0]);
-        getFigmaUsers2();
-        reactUser();
-        reactUser2();
+        getUsersFigma();
     });
 
 
@@ -40,195 +34,37 @@ function getInfo() {
     }
 }
 
-// function getFigmaUsers() {
-//     let result = persons.map(person => {
-//         person.skills.forEach(skill => {
-//             let figma = skill.name.toLowerCase() === 'figma';
-//             if (figma) {
-//                 return person;
-//             }
-//         });
-//     });
-//     console.log(result);
-// }
-
-// function getFigmaUsers() {
-//     let result = persons.map(person => {
-//         person.skills.forEach(skill => {
-//             if (skill.name.toLowerCase() === 'figma') {
-//                 return person;
-//             }
-//         });
-//     });
-//     console.log(result);
-// }
-
-// function getFigmaUsers() {
-//     let figma = [];
-//     persons.map(person => {
-//         let result = person.skills.filter(skill => {
-//             return skill.name.toLowerCase() === 'figma'
-//             if (result) {
-//                 return figma;
-//             }
-//         })
-//         console.log(figma)
-//     })
-//
-// }
-
-// function getFigmaUsers() {
-//     persons.forEach(person => {
-//         let result = person.skills.filter(skill => {
-//             return skill.name.toLowerCase() === 'figma'
-//         })
-//         result.find(array => {
-//             if (array && array.name) {
-//                 console.log(`${this.personal.firstName} ${this.personal.lastName}, владеет Figma`)
-//             } else {
-//                 console.log(`${this.personal.firstName} ${this.personal.lastName}, не владеет Figma`)
-//             }
-//         })
-//
-//     })
-// }
-
-// function getFigmaUsers() {
-//     persons.map(person => {
-//        let result = person.skills.filter(skill => {
-//             return skill.name.toLowerCase() === 'figma'
-//         })
-//         let figma = result.filter(array => {
-//             if (array && array.name) {
-//                 return person;
-//             }
-//         })
-//         console.log(figma)
-//     })
-// }
-
-
-// function getFigmaUsers() {
-//     persons.forEach(person => {
-//         let result = person.skills.map(skill => {
-//             let figma = skill.name.toLowerCase() === 'figma'
-//             if (figma) {
-//                 return skill;
-//             }
-//         })
-//         result.find(array => {
-//             if (array && array.name) {
-//                 console.log(`${this.personal.firstName} ${this.personal.lastName}, владеет Figma`)
-//             } else {
-//                 console.log(`${this.personal.firstName} ${this.personal.lastName}, не владеет Figma`)
-//             }
-//         })
-//
-//     })
-//
-// }
-
-
-// function getFigmaUsers() {
-//     let figma = null;
-//     persons.forEach(person => {
-//         let result = person.skills.map(skill => {
-//             if (skill.name.toLowerCase() === 'figma') {
-//                 return person;
-//             }
-//         })
-//         result.findIndex(array => {
-//             if (array && array.name) {
-//                 console.log(`${this.personal.firstName} ${this.personal.lastName}, владеет Figma`)
-//             } else {
-//                 console.log(`${this.personal.firstName} ${this.personal.lastName}, не владеет Figma`)
-//             }
-//         })
-//
-//     })
-//
-// }
-//
-// function getFigmaUsers() {
-//     persons.forEach(person => {
-//         let figma = person.skills.find(skill => {
-//             return skill.name.toLowerCase() === 'figma'
-//         })
-//         console.log(figma)
-//
-//     })
-// }
-//
-// function getFigmaUsers() {
-//     let figma =  persons.map(person => {
-//         person.skills.forEach(skill => {
-//             return skill.name.toLowerCase() === 'figma'
-//         })
-//
-//
-//     })
-//     console.log(figma)
-// }
-
-
-// function getFigmaUsers() {
-//     let result = persons.map(person => {
-//         person.skills.filter(skill => {
-//             if (skill.name.toLowerCase() === 'figma') {
-//                 return person;
-//             }
-//         })
-//     })
-//     console.log(result)
-//     if (result && result.name) {
-//         console.log(`${this.personal.firstName} ${this.personal.lastName}, владеет Figma`)
-//     } else {
-//         console.log(`${this.personal.firstName} ${this.personal.lastName}, не владеет Figma`)
-//     }
-// }
-
-function getFigmaUsers() {
-    let figma = this.skills.find(skill => {
-        return skill.name.toLowerCase() === 'figma'
+function getUserSpecialization(specName) {
+    const spec = specializations.find(specialization => {
+        return specialization.name.toLowerCase() === specName;
     });
-    if (figma) {
-        console.log(`${this.personal.firstName} ${this.personal.lastName}, владеет Figma`);
-    } else {
-        console.log(`${this.personal.firstName} ${this.personal.lastName}, не владеет Figma`);
+    if (spec && spec.id) {
+        return persons.filter(person => {
+            return person.personal.specializationId === spec.id;
+        });
     }
 }
 
-
-function getFigmaUsers2() {
-    persons.forEach(person => {
-        person.skills.find(skill => {
-            let figma = skill.name.toLowerCase() === 'figma';
-            if (figma) {
-                console.log(`${person.personal.firstName} ${person.personal.lastName}, владеет figma`);
-            }
-        });
+function getSkillUser(user, skillName) {
+    return user.skills.find(skill => {
+       return skill.name.toLowerCase() === skillName;
     });
 }
 
-
-function reactUser() {
-   let person = persons.find(user => {
-       return user.skills.find(skill => {
-           return skill.name.toLowerCase() === 'react'
-       })
-   });
-
-    console.log(person);
+function getUsersFigma() {
+    const designers = getUserSpecialization('designer');
+    if (designers && designers.length > 0) {
+        const designersFigma = designers.filter(skill => {
+            return getSkillUser(skill, 'figma');
+        });
+        if (designersFigma.length > 0) {
+            designersFigma.forEach(user => {
+                return getInfo.call(user);
+            });
+        }
+    }
 }
-function reactUser2() {
-   let person = persons.find(user => {
-       return user.skills.find(skill => {
-           return skill.name.toLowerCase() === 'react'
-       })
-   });
 
-    console.log(`${person.personal.firstName} ${person.personal.lastName}, первый попавшийся разработчик, который владеет React`);
-}
 
 
 
