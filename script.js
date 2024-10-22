@@ -127,9 +127,7 @@ function userLocation(user, locName) {
         return city.name.toLowerCase() === locName;
     });
     if (loc && loc.name) {
-        return user.filter(user => {
-            return user.personal.locationId === loc.id;
-        });
+        return user.personal.locationId === loc.id;
     }
 }
 
