@@ -195,6 +195,29 @@ function dreamTeam() {
     sortLevel(persons, 'go')
 }
 
+// function dreamDevelopTeam(specName, skillName, minLevel) {
+//     const developers = getUserSpecialization(specName);
+//     if (developers && developers.length > 0) {
+//         const filteredDevelopers = developers.filter(item => {
+//             const skill = getSkillUser(item, skillName);
+//             if (skill && skill.level) {
+//                 return skill.level >= minLevel;
+//             }
+//         });
+//         filteredDevelopers.forEach(user => {
+//             getInfo.call(user)
+//         })
+//     }
+// }
+//
+// function dreamTeam() {
+//     console.log('Владеет Figma:');
+//     dreamDevelopTeam('designer', 'figma', 10)
+//     console.log('Владеет Angular:');
+//     dreamDevelopTeam('frontend', 'angular', 9)
+//     console.log('Владеет Go:');
+//     dreamDevelopTeam('backend', 'go', 9)
+// }
 
 
 
