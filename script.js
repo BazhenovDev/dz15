@@ -131,43 +131,6 @@ function workSchedule(user, typeVal) {
     }
 }
 
-// function sortSalary(userArray) {
-//     const salary = userArray.request.find(reqItem => {
-//         return reqItem.name.toLowerCase() === 'зарплата'
-//     });
-//     if (salary && salary.name) {
-//         salary.sort((a,b) => {
-//             return a.value - b.value
-//         });
-//     }
-// }
-
-
-// function sortSalary(userArray) {
-//     return userArray.filter(user => {
-//         return user.request.find(req => {
-//             let zp = req.name.toLowerCase() === 'зарплата'
-//             console.log(zp)
-//         })
-//
-//         // if (salary && salary.value) {
-//         //    return userArray.salary.sort((a,b) => {
-//         //        return a.value - b.value
-//         //    })
-//         // }
-//     });
-// }
-
-// function sortSalary(userArray) {
-//     let salary = userArray.filter(user => {
-//        return user.request.find(req => {
-//             return req.name.toLowerCase() === 'зарплата'
-//         });
-//
-//     });
-//     console.log(salary)
-// }
-
 function sortSalary(userArray) {
     return userArray.sort((a, b) => {
         return a.request[0].value - b.request[0].value
@@ -205,68 +168,35 @@ function getPhotoshopAndFigmaUsers() {
     });
 }
 
-function dreamTeam() {
-    const team = persons.filter(user => {
-        const figmaUsers = getSkillUser(user, 'figma');
-        const angularUsers = getSkillUser(user, 'angular');
-        const goUsers = getSkillUser(user, 'go');
-        if (figmaUsers && figmaUsers.name) {
-            return user
-        }
-
-        if (angularUsers && angularUsers.name) {
-            // return user
-        }
-        if (goUsers && goUsers.name) {
-            // return user
+function sortLevel(usersArray, skillName) {
+    let maxLevel = 0;
+    let maxLevelItem = 0;
+    usersArray.forEach(user => {
+        const skillArray = user.skills.find(skill => {
+            return skill.name.toLowerCase() === skillName
+        });
+        if (skillArray && skillArray.name) {
+            const skillLevelNum = parseInt(skillArray.level);
+            if (!isNaN(skillLevelNum) && skillLevelNum > maxLevel) {
+               maxLevel = skillLevelNum
+               return maxLevelItem = user
+            }
         }
     });
-    console.log(team);
-
-    // let maxLevel = 0;
-    // let maxLevelFigma = null;
-    // let maxLevelAngular = null;
-    // let maxLevelGo = null;
-    //
-    // persons.forEach(user => {
-    //     const angularUser = user.skills.find(skill => {
-    //         return skill.name.toLowerCase() === 'angular'
-    //     })
-    //     if (angularUser && angularUser.name) {
-    //         const angularNum = parseInt(angularUser.level)
-    //         if (!isNaN(angularNum) && angularNum > maxLevel) {
-    //             maxLevel = angularNum
-    //             maxLevelAngular = user
-    //         }
-    //     }
-    //
-    //     const figmaUser = user.skills.find(skill => {
-    //         return skill.name.toLowerCase() === 'figma'
-    //     })
-    //     if (figmaUser && figmaUser.name) {
-    //         const figmaNum = parseInt(figmaUser.level)
-    //         if (!isNaN(figmaNum) && figmaNum > maxLevel) {
-    //             maxLevel = figmaNum
-    //             maxLevelFigma = user
-    //         }
-    //     }
-    //
-    //     const goUser = user.skills.find(skill => {
-    //         return skill.name.toLowerCase() === 'go'
-    //     })
-    //     if (goUser && goUser.name) {
-    //         const goNum = parseInt(goUser.level)
-    //         if (!isNaN(goNum) && goNum > maxLevel) {
-    //             maxLevel = goNum
-    //             maxLevelGo = user
-    //         }
-    //     }
-    // })
-    //
-    // console.log(maxLevelFigma)
-    // console.log(maxLevelAngular)
-    // console.log(maxLevelGo)
+    getInfo.call(maxLevelItem)
 }
+
+function dreamTeam() {
+    console.log('Владеет Figma:');
+    sortLevel(persons, 'figma')
+    console.log('Владеет Angular:');
+    sortLevel(persons, 'angular')
+    console.log('Владеет Go:');
+    sortLevel(persons, 'go')
+}
+
+
+
 
 
 
