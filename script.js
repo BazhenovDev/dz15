@@ -168,10 +168,10 @@ function getPhotoshopAndFigmaUsers() {
     });
 }
 
-function sortLevel(usersArray, skillName) {
+function sortLevel(skillName) {
     let maxLevel = 0;
     let maxLevelItem = 0;
-    usersArray.forEach(user => {
+    persons.forEach(user => {
         const skillArray = user.skills.find(skill => {
             return skill.name.toLowerCase() === skillName
         });
@@ -188,11 +188,11 @@ function sortLevel(usersArray, skillName) {
 
 function dreamTeam() {
     console.log('Владеет Figma:');
-    sortLevel(persons, 'figma')
+    sortLevel('figma')
     console.log('Владеет Angular:');
-    sortLevel(persons, 'angular')
+    sortLevel('angular')
     console.log('Владеет Go:');
-    sortLevel(persons, 'go')
+    sortLevel('go')
 }
 
 // function dreamDevelopTeam(specName, skillName, minLevel) {
