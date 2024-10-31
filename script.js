@@ -183,7 +183,9 @@ function sortLevel(skillName) {
             }
         }
     });
-    getInfo.call(maxLevelItem)
+    if (maxLevelItem) {
+        getInfo.call(maxLevelItem)
+    }
 }
 
 function dreamTeam() {
