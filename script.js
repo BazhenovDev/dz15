@@ -131,9 +131,17 @@ function workSchedule(user, typeVal) {
     }
 }
 
+// function sortSalary(userArray) {
+//     return userArray.sort((a, b) => {
+//         return a.request[0].value - b.request[0].value
+//     });
+// }
+
 function sortSalary(userArray) {
     return userArray.sort((a, b) => {
-        return a.request[0].value - b.request[0].value
+        const salaryA = a.request.find(item => item.name.toLowerCase() === 'зарплата')?.value || 0;
+        const salaryB = b.request.find(item => item.name.toLowerCase() === 'зарплата')?.value || 0;
+        return salaryA - salaryB;
     });
 }
 
@@ -177,7 +185,7 @@ function sortLevel(skillName) {
         });
         if (skillArray && skillArray.name) {
             const skillLevelNum = parseInt(skillArray.level);
-            if (!isNaN(skillLevelNum) && skillLevelNum > maxLevel) {
+            if (!isNaN(skillLevelNum) && skillLevelNum >= maxLevel) {
                maxLevel = skillLevelNum
                return maxLevelItem = user
             }
